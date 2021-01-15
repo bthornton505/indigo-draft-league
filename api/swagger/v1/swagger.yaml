@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/sign_up":
+    post:
+      summary: Creates a new Trainer profile
+      tags:
+      - Trainers
+      parameters: []
+      responses:
+        '200':
+          description: trainer created
+          content: {}
+        '401':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

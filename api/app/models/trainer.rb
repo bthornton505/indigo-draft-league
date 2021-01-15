@@ -4,6 +4,6 @@ class Trainer < ApplicationRecord
   devise :database_authenticatable, :registerable
 
   def generate_jwt 
-    JWT.encode({ id: id, exp: 60.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'], 'HS256')
+    JWT.encode({ id: id, exp: 1.days.from_now.to_i }, ENV['DEVISE_JWT_SECRET_KEY'], 'HS256')
   end 
 end
