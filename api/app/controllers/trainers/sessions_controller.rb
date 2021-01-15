@@ -3,39 +3,35 @@
 class Trainers::SessionsController < Devise::SessionsController
   respond_to :json
 
+  def create 
+    trainer = Trainer.find_by_email(sign_in_params[:email])
+
+    if trainer && trainer.valid_password?(sign_in_params[:password])
+      token = trainer.generate_jwt
+      respond_with({
+        code: 200, message: 'Logged in successfully.', data: token
+      })
+    else 
+      respond_with({
+        code: 401, message: trainer.errors.full_messages, data: sign_in_params
+      })
+    end 
+  end 
+
   private 
 
-  def respond_with(resource, _opts = {})
+  def sign_in_params 
+    params.require(:session).permit(:email, :password)
+  end
+
+  def respond_with(_opts = {})
     render json: {
-      status: { code: 200, message: 'Logged in successfully.' },
-      data: TrainerSerializer.new(resource).serializable_hash[:data][:attributes]
+      status: { code: _opts[:code], message: _opts[:message] },
+      data: _opts[:data]
     }
   end 
 
   def respond_to_on_destroy
     head :ok
   end 
-  # before_action :configure_sign_in_params, only: [:create]
-
-  # GET /resource/sign_in
-  # def new
-  #   super
-  # end
-
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
-
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
 end
