@@ -5,7 +5,7 @@ class Trainers::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-
+    
     if resource.save
       token = resource.generate_jwt
       respond_with({ 

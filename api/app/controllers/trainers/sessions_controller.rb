@@ -13,7 +13,7 @@ class Trainers::SessionsController < Devise::SessionsController
       })
     else 
       respond_with({
-        code: 401, message: trainer.errors.full_messages, data: sign_in_params
+        code: 401, message: 'Invalid credentials. Try again.', data: sign_in_params
       })
     end 
   end 

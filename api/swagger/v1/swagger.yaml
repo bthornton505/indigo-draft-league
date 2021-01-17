@@ -4,6 +4,29 @@ info:
   title: API V1
   version: v1
 paths:
+  "/create":
+    post:
+      summary: Creates a new League
+      tags:
+      - Leagues
+      parameters: []
+      responses:
+        '200':
+          description: Successfully create a new League
+          content: {}
+        '401':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
   "/sign_up":
     post:
       summary: Creates a new Trainer profile
@@ -12,7 +35,7 @@ paths:
       parameters: []
       responses:
         '200':
-          description: trainer created
+          description: Successfull Registration
           content: {}
         '401':
           description: invalid request
@@ -34,8 +57,34 @@ paths:
               required:
               - email
               - password
+  "/login":
+    post:
+      summary: Logs in a Trainer
+      tags:
+      - Trainers
+      parameters: []
+      responses:
+        '200':
+          description: Successful Login
+          content: {}
+        '401':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
 servers:
-- url: https://{defaultHost}
+- url: http://localhost:3000
   variables:
     defaultHost:
-      default: www.example.com
+      default: http://localhost:3000

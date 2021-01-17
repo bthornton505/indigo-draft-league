@@ -11,7 +11,6 @@ class DeviseCreateTrainers < ActiveRecord::Migration[6.0]
 
       t.integer :total_wins, default: 0
       t.integer :total_losses, default: 0
-      t.boolean :is_league_owner, default: false
 
       ## Recoverable
       t.string   :reset_password_token

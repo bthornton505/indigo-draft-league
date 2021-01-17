@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_211625) do
+ActiveRecord::Schema.define(version: 2021_01_17_001545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "league_memberships", force: :cascade do |t|
+    t.bigint "trainer_id"
+    t.bigint "league_id"
+    t.boolean "league_owner", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["league_id"], name: "index_league_memberships_on_league_id"
+    t.index ["trainer_id"], name: "index_league_memberships_on_trainer_id"
+  end
+
+  create_table "leagues", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "trainers", force: :cascade do |t|
     t.string "first_name"
@@ -22,7 +38,6 @@ ActiveRecord::Schema.define(version: 2021_01_10_211625) do
     t.string "encrypted_password", default: "", null: false
     t.integer "total_wins", default: 0
     t.integer "total_losses", default: 0
-    t.boolean "is_league_owner", default: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
