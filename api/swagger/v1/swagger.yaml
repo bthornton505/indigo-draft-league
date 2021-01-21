@@ -9,7 +9,13 @@ paths:
       summary: Creates a new League
       tags:
       - Leagues
-      parameters: []
+      security:
+      - bearer_auth: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: Successfully create a new League
@@ -88,3 +94,9 @@ servers:
   variables:
     defaultHost:
       default: http://localhost:3000
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'jwt'
 
 RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
@@ -31,7 +32,16 @@ RSpec.configure do |config|
             }
           }
         }
-      ]
+      ],
+      components: {
+        securitySchemes: {
+          bearer_auth: {
+            type: :http,
+            scheme: :bearer,
+            bearerFormat: JWT
+          },
+        }
+      }
     }
   }
 

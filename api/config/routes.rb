@@ -12,4 +12,7 @@ Rails.application.routes.draw do
     sessions: 'trainers/sessions',
     registrations: 'trainers/registrations'
   }
+
+  resources :leagues
+  resources :league_settings
 end
