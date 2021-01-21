@@ -7,11 +7,11 @@ class ApplicationController < ActionController::API
   end 
 
   def signed_in?
-    @current_user_id.present?
+    @current_user.present?
   end 
 
   def current_user 
-    @current_user_id ||= super || User.find(@current_user_id)
+    @current_user ||= Trainer.find(@current_user_id)
   end 
 
   def process_token 
@@ -19,8 +19,8 @@ class ApplicationController < ActionController::API
 
     if authorization_header.present?
       begin 
-        jwt_payload = JWT.decode(authorization_header.split(' ')[1], ENV['DEVISE_JWT_SECRET_KEY'], true, { algorithm: 'HS256'} )
-        @current_user_id = jwt_payload['id']
+        jwt_payload = JWT.decode(authorization_header, ENV['DEVISE_JWT_SECRET_KEY'], true, { algorithm: 'HS256'} )
+        @current_user_id = jwt_payload[0]["id"]
       rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
         head :unauthorized
       end 
