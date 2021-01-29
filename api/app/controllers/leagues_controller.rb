@@ -16,8 +16,27 @@ class LeaguesController < ApplicationController
 
       render json: LeagueSerializer.new(league).serializable_hash.to_json
     else 
-      raise StandardError.new(league.errors.full_messages[0])
+      raise "There was a problem making changes to your league. Details: #{league.errors.full_messages[0]}"
     end 
+
+  rescue StandardError => e 
+    render json: { error: e }
+  end 
+
+  def show 
+    league = League.find(params[:id])
+    render json: LeagueSerializer.new(league).serializable_hash.to_json
+  end 
+
+  def update 
+    league = League.find(params[:id])
+    
+    if !league.valid?
+      raise "There was a problem making changes to your league. Details: #{league.errors.full_messages}"
+    end  
+      
+    league.update(league_params)
+    render json: LeagueSerializer.new(league).serializable_hash.to_json
 
   rescue StandardError => e 
     render json: { error: e }

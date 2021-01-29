@@ -21,8 +21,8 @@ class ApplicationController < ActionController::API
       begin 
         jwt_payload = JWT.decode(authorization_header, ENV['DEVISE_JWT_SECRET_KEY'], true, { algorithm: 'HS256'} )
         @current_user_id = jwt_payload[0]["id"]
-      rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
-        head :unauthorized
+      rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError => e
+        render json: { error: e, status: :unauthorized}
       end 
     end 
   end 
