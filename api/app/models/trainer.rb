@@ -4,6 +4,7 @@ class Trainer < ApplicationRecord
   devise :database_authenticatable, :registerable
   has_many :league_memberships
   has_many :leagues, :through => :league_memberships
+  has_many :teams 
 
   validates :email, uniqueness: true, presence: true
 

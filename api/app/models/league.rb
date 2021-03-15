@@ -1,6 +1,7 @@
 class League < ApplicationRecord
   has_many :league_memberships
   has_many :trainers, :through => :league_memberships
+  has_many :teams
   has_one :league_setting
 
   validates :name, uniqueness: true

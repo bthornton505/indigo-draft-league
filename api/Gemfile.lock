@@ -78,11 +78,6 @@ GEM
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
     erubi (1.10.0)
-    factory_bot (5.2.0)
-      activesupport (>= 4.2.0)
-    factory_bot_rails (5.2.0)
-      factory_bot (~> 5.2.0)
-      railties (>= 4.2.0)
     ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -221,7 +216,6 @@ DEPENDENCIES
   byebug
   devise
   dotenv-rails
-  factory_bot_rails
   jsonapi-serializer
   jwt
   listen (~> 3.2)

@@ -15,5 +15,14 @@ Rails.application.routes.draw do
 
   resources :leagues do 
     resources :league_settings
+    resources :teams
   end 
 end
+
+# /trainer/:trainer_id/leagues <-- this could be part of home page when trainer logs in
+
+# /leagues/:league_id/teams/:team_id
+# /leagues/:league_id/teams
+
+# /trainer/:trainer_id/teams
+# /trainer/:trainer_id/teams/:team_id
