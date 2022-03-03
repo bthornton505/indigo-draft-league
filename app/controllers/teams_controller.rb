@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
   end
 
   def update 
+    # overall this will need alot of work when accounting for pokemon
     team = Team.find(params[:id])
 
     team.update(team_params)
