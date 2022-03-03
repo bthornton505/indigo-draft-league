@@ -1,19 +1,22 @@
 version: "3.9"
 services:
-  db:
-    image: postgres
+  indigo-league-db:
+    image: postgres:13
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: password
+
   web:
-    build: 
-      context: .
-      dockerfile: ./api/DockerFile
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle install && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/api
+      - .:/indigo-league-api
+    environment:
+      DATABASE_HOST: indigo-league-db
+      DATABASE_USER: brendenthornton
+      DATABASE_PASSWORD: testpass
+      DATABASE_NAME: indigo_development
+      DATABASE_PORT: 5432
     ports:
       - "3000:3000"
-    links:
-      - db
+    depends_on:
+      - indigo-league-db

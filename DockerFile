@@ -4,11 +4,14 @@ RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 RUN mkdir /indigo-league-api
 WORKDIR /indigo-league-api
 
-COPY ./api/Gemfile Gemfile
-COPY ./api/Gemfile.lock Gemfile.lock
+COPY Gemfile .
+COPY Gemfile.lock .
+
 RUN gem install bundler -v 2.1.4
+RUN bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java
 RUN bundle install
-COPY ./api /indigo-league-api
+
+COPY . /indigo-league-api
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
