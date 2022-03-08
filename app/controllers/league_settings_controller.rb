@@ -32,7 +32,7 @@ class LeagueSettingsController < ApplicationController
   private 
 
   def league_settings_params 
-    params.require(:league_settings).permit(
+    params.permit(
       :league_id,
       :format,
       :number_of_matchups_a_week,

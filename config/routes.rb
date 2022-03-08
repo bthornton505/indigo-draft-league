@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     registrations: 'trainers/registrations'
   }
 
+  resources :trainers
+  resources :team_memberships
+
   resources :leagues do 
     resources :league_settings
     resources :teams
