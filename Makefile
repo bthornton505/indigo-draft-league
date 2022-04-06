@@ -1,6 +1,3 @@
-aws_profile = asird
-project_name = asird-api
-
 setup: rebuild
 start: up
 stop: clean

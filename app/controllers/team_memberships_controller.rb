@@ -5,7 +5,7 @@ class TeamMembershipsController < ApplicationController
   end
 
   def create
-    team_membership = TeamMemberships.new(team_membeship_params)
+    team_membership = TeamMemberships.new(team_membership_params)
 
     if team_membership.valid?
       team_membership.save
@@ -26,13 +26,13 @@ class TeamMembershipsController < ApplicationController
   def update 
     team_membership = TeamMemberships.find(params[:id])
 
-    team_membership.update(team_membeship_params)
+    team_membership.update(team_membership_params)
     render json: TeamMembershipSerializer.new(team_membership).serializable_hash.to_json
   end 
 
   private 
 
-  def team_membeship_params 
+  def team_membership_params 
     params.permit(
       :trainer_id,
       :pokemon_id,
